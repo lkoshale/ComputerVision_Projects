@@ -38,7 +38,7 @@ class NeuralNetwork:
         for epoch in np.arange(0,epochs):
 
             for (x,target) in zip(X,y):
-                self.fit_partial(x,y)
+                self.fit_partial(x,target)
 
             # check to see if we should display a training update
             if epoch == 0 or (epoch + 1) % displayUpdate == 0:
@@ -61,16 +61,41 @@ class NeuralNetwork:
 
         for layer in np.arange(len(A)-2,0,-1):
             delta = D[-1].dot(self.W[layer].T)
+            # print(D[-1].shape,self.W[layer].T.shape,delta.shape)
             delta = delta* self.sigmoid_deriv(A[layer])
             D.append(delta)
 
         #reverse Delta
         D = D[::-1]
+        # print(D)
+        # print(A)
 
         #update wieght
 
         for layer in np.arange(0,len(self.W)):
-            self.W[layer]+= -self.alpha*A[layer].T.dot(D[layer])
+            # print(self.W[layer].shape,A[layer].shape,D[layer].shape,layer)
+            self.W[layer]+= -self.alpha * A[layer].T.dot(D[layer])
+
+
+    def predict(self,X,addBias=True):
+
+        p = np.atleast_2d(X)
+
+        if(addBias):
+            p = np.c_[p,np.ones((p.shape[0]))]
+
+        for layer in np.arange(0,len(self.W)):
+             p = self.sigmoid(np.dot(p,self.W[layer]))
+
+        return p
+
+
+    def calculate_loss(self,X,target):
+        target = np.atleast_2d(target)
+        p = self.predict(X,addBias=False)
+        loss = 0.5*np.sum((p-target)**2)
+
+        return loss
 
 
 
