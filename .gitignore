@@ -2,3 +2,4 @@
 #ignore datset
 /pyimagesearch/datasets/animals
 *.directory
+/output
