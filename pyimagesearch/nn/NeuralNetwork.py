@@ -43,7 +43,7 @@ class NeuralNetwork:
             # check to see if we should display a training update
             if epoch == 0 or (epoch + 1) % displayUpdate == 0:
                 loss = self.calculate_loss(X, y)
-            print("[INFO] epoch={}, loss={:.7f}".format(epoch + 1, loss))
+                print("[INFO] epoch={}, loss={:.7f}".format(epoch + 1, loss))
 
     def fit_partial(self,x,y):
 
@@ -53,7 +53,6 @@ class NeuralNetwork:
             net = A[layer].dot(self.W[layer])
             out = self.sigmoid(net)
             A.append(out)
-
 
         #TODO BACKPROPOGATION
         error = A[-1] - y
@@ -67,18 +66,13 @@ class NeuralNetwork:
 
         #reverse Delta
         D = D[::-1]
-        # print(D)
-        # print(A)
 
         #update wieght
-
         for layer in np.arange(0,len(self.W)):
             # print(self.W[layer].shape,A[layer].shape,D[layer].shape,layer)
             self.W[layer]+= -self.alpha * A[layer].T.dot(D[layer])
 
-
     def predict(self,X,addBias=True):
-
         p = np.atleast_2d(X)
 
         if(addBias):
@@ -88,7 +82,6 @@ class NeuralNetwork:
              p = self.sigmoid(np.dot(p,self.W[layer]))
 
         return p
-
 
     def calculate_loss(self,X,target):
         target = np.atleast_2d(target)
