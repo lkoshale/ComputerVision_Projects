@@ -27,4 +27,3 @@ class ShallowNet:
         model.add(Activation('softmax'))            #final activation layer softmax
 
         return model
-
