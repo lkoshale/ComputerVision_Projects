@@ -43,8 +43,8 @@ class MiniVGGNet:
         model.add(Dense(512))
         model.add(Activation('relu'))
         model.add(BatchNormalization(axis=chanDim))
-        model.add(Dropout(0.25))
-        model.add(Dense(10))
+        model.add(Dropout(0.5))
+        model.add(Dense(classes))
         model.add(Activation('softmax'))
 
         return model
