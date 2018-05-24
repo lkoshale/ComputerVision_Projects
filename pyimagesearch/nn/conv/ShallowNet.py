@@ -20,7 +20,7 @@ class ShallowNet:
             inputshape = (depth,height,width)
 
         #TODO 32 filters of size 3x3
-        model.add(Conv2D(32,(3,3),padding='same',inputshape=inputshape))
+        model.add(Conv2D(32,(3,3),padding='same',input_shape=inputshape))
         model.add(Activation('relu'))
         model.add(Flatten())                        #flatten before going in final FC layer
         model.add(Dense(classes))
