@@ -5,13 +5,12 @@ from pyimagesearch.nn.conv.lenet import LeNet
 from sklearn import datasets
 from keras import backend as K
 import numpy as np
-import argparse
 from keras.optimizers import SGD
 import matplotlib.pyplot as plt
 
-
+print("[INFO] accessing MNIST...")
 dataset = datasets.fetch_mldata("MNIST Original")
-data = datasets.data
+data = dataset.data
 
 if K.image_data_format() == 'channels_first':
     data = data.reshape(data.shape[0],1,28,28)
@@ -26,7 +25,8 @@ testY = lb.transform(testY)
 
 print("[INFO] compiling model...")
 model = LeNet.build(28,28,1,10)
-model.compile(optimizer=SGD(lr=0.1),loss="categorical_crossentropy",metrics=['accuracy'])
+opt = SGD(lr=0.1)
+model.compile(optimizer=opt,loss="categorical_crossentropy",metrics=['accuracy'])
 
 print("[INFO] training network...")
 H = model.fit(trainX,trainY,validation_data=(testX,testY),epochs=20,batch_size=28,verbose=1)
