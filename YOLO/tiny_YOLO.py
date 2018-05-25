@@ -7,6 +7,7 @@ from keras.models import Sequential
 from keras.layers.core import Flatten,Dense,Activation
 from keras.layers.convolutional import Conv2D,MaxPooling2D
 from keras.layers.advanced_activations import LeakyReLU
+
 import keras.backend as K
 
 
@@ -64,6 +65,7 @@ class tinyYOLO:
         model.add(Dense(4096))
         model.add(LeakyReLU(alpha=0.1))
         model.add(Dense(1470))
+        model.add(Activation(activation='linear'))
 
         return model
 
