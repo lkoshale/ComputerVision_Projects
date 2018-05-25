@@ -3,3 +3,4 @@
 /pyimagesearch/datasets/animals
 *.directory
 /output
+*.weights
